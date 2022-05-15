@@ -1,0 +1,10 @@
+export/
+.import/
+
+scenes/test_maps
+scenes/autosave/
+textures/QUAKE101.WAD*
+
+addons/qodot/bin/win64
+addons/qodot/bin/osx
+addons/qodot/bin/x11
