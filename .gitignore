@@ -1,5 +1,6 @@
 export/
 .import/
+.mono/
 
 scenes/test_maps
 scenes/autosave/
