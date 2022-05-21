@@ -3,12 +3,12 @@ extends RigidBody
 export(float) var ride_height = 2.0
 export(float) var ride_spring_strength = 30
 export(float) var ride_spring_damper = 3
-export(float) var righting_spring_strength = 20
+export(float) var righting_spring_strength = 30
 export(float) var righting_spring_damper = 2
 
 export(float) var max_speed = 20
 export(float) var strafe_speed = 30
-export(float) var brake_force = 20
+export(float) var brake_force = 5
 
 export(float) var lean_angle = 10
 
@@ -35,7 +35,7 @@ func get_floating():
 
 func _process(delta):
 	if ground_ray.is_colliding():
-		$DropShadow.global_transform.origin = ground_ray.get_collision_point()
+		$DropShadow.global_transform.origin = ground_ray.get_collision_point() + Vector3(0, 0.1, 0)
 		$DropShadow.visible = true
 	else:
 		$DropShadow.visible = false
@@ -44,7 +44,7 @@ func _process(delta):
 func process_input(delta):
 	left = left or Input.is_action_just_pressed("left")
 	right = right or Input.is_action_just_pressed("right")
-	brake = brake or Input.is_action_just_pressed("brake")
+	brake = brake or Input.is_action_pressed("brake")
 	if Input.is_action_just_pressed("jump"):
 		time_since_jump = 0;
 	else:
@@ -88,7 +88,8 @@ func _integrate_forces(state):
 		apply_central_impulse(Vector3.RIGHT * strafe_speed)
 	if brake:
 		brake = false
-		state.linear_velocity.z
+		state.linear_velocity.z = 0
+		add_central_force(Vector3.FORWARD / brake_force)
 	
 	var lean_axis: Vector3 = Vector3.FORWARD
 	var cur_rot:Vector3 = global_transform.basis.y
