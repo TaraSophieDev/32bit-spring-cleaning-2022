@@ -1,6 +1,7 @@
 extends RigidBody
 
 export(float) var ride_height = 2.0
+export(float) var loop_length = 140
 export(float) var ride_spring_strength = 30
 export(float) var ride_spring_damper = 3
 export(float) var righting_spring_strength = 30
@@ -57,11 +58,11 @@ func process_input(delta):
 		time_since_grounded += delta
 
 func _physics_process(delta):
-	if(global_transform.origin.z < -39):
+	if(global_transform.origin.z < -(1 + loop_length)):
 		global_transform.origin.z = -1
 	
 func _integrate_forces(state):
-	ground_ray.cast_to = Vector3.DOWN*ride_height*2
+	ground_ray.cast_to = Vector3.DOWN*ride_height*1.2
 	ground_ray.force_raycast_update()
 	var ray_dir_vel = state.linear_velocity.dot(Vector3.UP)
 	var hit_point = ground_ray.get_collision_point()
@@ -89,7 +90,7 @@ func _integrate_forces(state):
 	if brake:
 		brake = false
 		state.linear_velocity.z = 0
-		add_central_force(Vector3.FORWARD / brake_force)
+		apply_central_impulse(Vector3.FORWARD * brake_force)
 	
 	var lean_axis: Vector3 = Vector3.FORWARD
 	var cur_rot:Vector3 = global_transform.basis.y
