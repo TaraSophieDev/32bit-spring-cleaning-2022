@@ -30,11 +30,14 @@ var grounded_time = 0
 onready var time_since_jump = coyote
 
 onready var ground_ray:RayCast = $RayCast 
+onready var fire = $Model/SkateboardCat/Fire
+onready var animation_player = $Model/SkateboardCat/AnimationPlayer
 
 func get_floating():
 	return do_float
 
 func _process(delta):
+	
 	if ground_ray.is_colliding():
 		$DropShadow.global_transform.origin = ground_ray.get_collision_point() + Vector3(0, 0.1, 0)
 		$DropShadow.visible = true
@@ -80,17 +83,24 @@ func _integrate_forces(state):
 	
 	#movement
 	if left:
+		animation_player.play_backwards("rotate_fire")
 		left = false
 		state.linear_velocity.x = 0
 		apply_central_impulse(Vector3.LEFT * strafe_speed)
 	if right:
+		animation_player.play("rotate_fire")
 		right = false
 		state.linear_velocity.x = 0
 		apply_central_impulse(Vector3.RIGHT * strafe_speed)
 	if brake:
+		fire.hide()
 		brake = false
 		state.linear_velocity.z = 0
 		apply_central_impulse(Vector3.FORWARD * brake_force)
+	else:
+		fire.show()
+
+	
 	
 	var lean_axis: Vector3 = Vector3.FORWARD
 	var cur_rot:Vector3 = global_transform.basis.y
