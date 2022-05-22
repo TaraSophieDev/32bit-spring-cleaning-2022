@@ -50,7 +50,6 @@ enabled = true
 [node name="DropShadowX" type="MeshInstance" parent="."]
 visible = false
 mesh = SubResource( 3 )
-material/0 = null
 
 [node name="DropShadow" type="Sprite3D" parent="."]
 transform = Transform( 2.5, 0, 0, 0, -1.09278e-07, -1, 0, 2.5, -4.37114e-08, 0, 0, 0 )

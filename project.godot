@@ -14,6 +14,14 @@ config/name="32bit-spring-cleaning-2022"
 run/main_scene="res://World.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/width=256
+window/size/height=224
+window/per_pixel_transparency/allowed=true
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
+
 [input]
 
 left={
