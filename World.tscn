@@ -10,11 +10,15 @@ script = ExtResource( 3 )
 
 [node name="Level-Kit" parent="." instance=ExtResource( 2 )]
 
+[node name="Level-Kit2" parent="." instance=ExtResource( 2 )]
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -150 )
+
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = ExtResource( 4 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -0.993785 )
+loop_length = 280.0
 ride_spring_strength = 40.0
 righting_spring_strength = 20.0
 max_speed = 30.0
